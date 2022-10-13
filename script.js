@@ -1,6 +1,6 @@
 const tasksList = document.querySelector(".tasks");
 let editing = false;
-let userId = null;
+let taskId = null;
 
 // This is like the "state" of the app.
 let tasks = [];
@@ -37,7 +37,7 @@ const renderData = () => {
     const updateBtn = newTask.querySelector(".btn-update");
     updateBtn.addEventListener("click", async () => {
       editing = true;
-      userId = task.id;
+      taskId = task.id;
       const input = document.querySelector("#addTask");
       input.value = task.description;
     });
@@ -112,12 +112,12 @@ const submitForm = async (e, inputValue) => {
     try {
       let currTask = null;
       tasks.forEach(task => {
-        if (task.id === userId) {
+        if (task.id === taskId) {
           currTask = task;
         }
       });
-      const res = await fetch(`https://tasks.up.railway.app/editTask/${userId}`, {
-        // const res = await fetch(`http://localhost:3000/editTask/${userId}`, {
+      const res = await fetch(`https://tasks.up.railway.app/editTask/${taskId}`, {
+        // const res = await fetch(`http://localhost:3000/editTask/${taskId}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
@@ -138,7 +138,7 @@ const submitForm = async (e, inputValue) => {
     }
 
     editing = false;
-    userId = null;
+    taskId = null;
   }
 };
 
