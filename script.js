@@ -14,7 +14,9 @@ const renderData = () => {
     <div class="task-btns">
       <button class="btn-del">Delete</button>
       <button class="btn-update">Update</button>
-    </div>`;
+    </div>
+    <input class="completed-checkbox" type="checkbox" id="completed" name="completed"> 
+    `;
 
     tasksList.appendChild(newTask);
 
