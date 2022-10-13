@@ -24,7 +24,7 @@ const renderData = () => {
 
     delBtn.addEventListener("click", async () => {
       const res = await fetch(`https://tasks.up.railway.app/deleteTask/${task.id}`, {
-      // const res = await fetch(`http://localhost:3000/deleteTask/${task.id}`, {
+        // const res = await fetch(`http://localhost:3000/deleteTask/${task.id}`, {
         method: "DELETE",
       });
 
@@ -40,6 +40,30 @@ const renderData = () => {
       userId = task.id;
       const input = document.querySelector("#addTask");
       input.value = task.description;
+    });
+
+    const completedCheckbox = newTask.querySelector(".completed-checkbox");
+    if (task.completed) {
+      completedCheckbox.checked = true;
+      // TODO: Add CSS class to cross out the task.
+    }
+    completedCheckbox.addEventListener("click", async () => {
+      console.log("listening"); /////
+      const res = await fetch(`https://tasks.up.railway.app/editTask/${task.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          description: task.description,
+          completed: !task.completed,
+        }),
+      });
+      const completedTask = await res.json();
+      const updatedTasks = tasks.map((task) => (task.id === completedTask.id ? completedTask : task));
+      tasks = updatedTasks;
+      renderData();
     });
   });
 };
@@ -86,8 +110,14 @@ const submitForm = async (e, inputValue) => {
     }
   } else {
     try {
+      let currTask = null;
+      tasks.forEach(task => {
+        if (task.id === userId) {
+          currTask = task;
+        }
+      });
       const res = await fetch(`https://tasks.up.railway.app/editTask/${userId}`, {
-      // const res = await fetch(`http://localhost:3000/editTask/${userId}`, {
+        // const res = await fetch(`http://localhost:3000/editTask/${userId}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
@@ -95,12 +125,12 @@ const submitForm = async (e, inputValue) => {
         },
         body: JSON.stringify({
           description: inputValue,
-          completed: false,
+          completed: currTask.completed,
           date: "2022-10-12",
         }),
       });
       const updatedTask = await res.json();
-      const updatedTasks = tasks.map(task => task.id === updatedTask.id ? updatedTask : task);
+      const updatedTasks = tasks.map((task) => (task.id === updatedTask.id ? updatedTask : task));
       tasks = updatedTasks;
       renderData();
     } catch (error) {
