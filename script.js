@@ -10,7 +10,7 @@ const renderData = () => {
   tasks.forEach((task) => {
     const newTask = document.createElement("li");
     newTask.innerHTML = `
-    <h2>${task.description}</h2>
+    <h2 class="task-title">${task.description}</h2>
     <div class="task-btns">
       <button class="btn-del">Delete</button>
       <button class="btn-update">Update</button>
@@ -42,13 +42,14 @@ const renderData = () => {
       input.value = task.description;
     });
 
+    const taskTitle = newTask.querySelector(".task-title");
     const completedCheckbox = newTask.querySelector(".completed-checkbox");
     if (task.completed) {
       completedCheckbox.checked = true;
       // TODO: Add CSS class to cross out the task.
+      taskTitle.classList.add("completed");
     }
     completedCheckbox.addEventListener("click", async () => {
-      console.log("listening"); /////
       const res = await fetch(`https://tasks.up.railway.app/editTask/${task.id}`, {
         method: "PUT",
         headers: {
@@ -61,6 +62,7 @@ const renderData = () => {
         }),
       });
       const completedTask = await res.json();
+      taskTitle.classList.toggle("completed");
       const updatedTasks = tasks.map((task) => (task.id === completedTask.id ? completedTask : task));
       tasks = updatedTasks;
       renderData();
