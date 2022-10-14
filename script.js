@@ -27,9 +27,7 @@ const renderData = () => {
         // const res = await fetch(`http://localhost:3000/deleteTask/${task.id}`, {
         method: "DELETE",
       });
-
       const data = await res.json();
-
       tasks = tasks.filter((task) => task.id !== parseInt(data.id));
       renderData();
     });
@@ -112,12 +110,7 @@ const submitForm = async (e, inputValue) => {
     }
   } else {
     try {
-      let currTask = null;
-      tasks.forEach(task => {
-        if (task.id === taskId) {
-          currTask = task;
-        }
-      });
+      const currTask = tasks.filter(task => task.id === taskId);
       const res = await fetch(`https://tasks.up.railway.app/editTask/${taskId}`, {
         // const res = await fetch(`http://localhost:3000/editTask/${taskId}`, {
         method: "PUT",
@@ -127,7 +120,7 @@ const submitForm = async (e, inputValue) => {
         },
         body: JSON.stringify({
           description: inputValue,
-          completed: currTask.completed,
+          completed: currTask.completed ? currTask.completed : false,
           date: "2022-10-12",
         }),
       });
