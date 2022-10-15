@@ -1,8 +1,103 @@
+/* || GENERAL STYLES */
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+li {
+  list-style: none;
+}
+
 .form * {
   display: block;
+}
+
+.container {
+  font-size: 1.3rem;
+  padding: 5rem;
+  min-height: 100vh;
+  background-color: rgb(238, 238, 238);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* || FORM */
+.form {
+  margin-bottom: 3rem;
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.form-inputs {
+  display: flex;
+}
+
+#addTask {
+  border: none;
+  background-color: rgba(173, 245, 255, 0.265);
+  padding: 0.5rem;
+  width: 35rem;
+}
+
+.submit-btn {
+  background-color: rgb(0, 208, 56);
+  color: #fff;
+  padding: 1rem;
+  font-size: 2rem;
+}
+
+/* || TASKLIST */
+.task {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.task-rhs {
+  display: flex;
+}
+
+.btn-del {
+  background-color: rgb(204, 0, 0);
+  color: #fff;
+  padding: 0.5rem;
+}
+
+.btn-update {
+  background-color: rgb(0, 208, 56);
+  color: #fff;
+  padding: 0.5rem;
+}
+
+.completed-checkbox {
+  margin-left: 0.3rem;
 }
 
 /* || UTILITIES */
 .completed {
   text-decoration: line-through;
+}
+
+.btn {
+  cursor: pointer;
+  border: none;
+}
+
+.btn:hover {
+  opacity: 0.6;
 }

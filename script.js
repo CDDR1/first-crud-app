@@ -9,13 +9,16 @@ const renderData = () => {
   tasksList.innerHTML = "";
   tasks.forEach((task) => {
     const newTask = document.createElement("li");
+    newTask.classList.add("task");
     newTask.innerHTML = `
     <h2 class="task-title">${task.description}</h2>
-    <div class="task-btns">
-      <button class="btn-del">Delete</button>
-      <button class="btn-update">Update</button>
+    <div class="task-rhs">
+      <div class="task-btns">
+        <button class="btn-del btn">Delete</button>
+        <button class="btn-update btn">Update</button>
+      </div>
+      <input class="completed-checkbox" type="checkbox" id="completed" name="completed"> 
     </div>
-    <input class="completed-checkbox" type="checkbox" id="completed" name="completed"> 
     `;
 
     tasksList.appendChild(newTask);
@@ -44,7 +47,6 @@ const renderData = () => {
     const completedCheckbox = newTask.querySelector(".completed-checkbox");
     if (task.completed) {
       completedCheckbox.checked = true;
-      // TODO: Add CSS class to cross out the task.
       taskTitle.classList.add("completed");
     }
     completedCheckbox.addEventListener("click", async () => {

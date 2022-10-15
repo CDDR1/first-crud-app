@@ -13,9 +13,11 @@
 <body>
   <div class="container">
     <form id="addTaskForm" action="https://tasks.up.railway.app/addTask" method="post" class="form">
-      <label for="addTask">Add task</label>
-      <input type="text" name="addTask" id="addTask" required placeholder="Type here...">
-      <input type="submit" value="Add">
+      <label for="addTask"><h1 class="form-title">Add task</h1></label>
+      <div class="form-inputs">
+        <input type="text" name="addTask" id="addTask" required placeholder="Type here...">
+        <input type="submit" value="+" class="submit-btn btn">
+      </div>
     </form>
     <ul class="tasks">
     </ul>
